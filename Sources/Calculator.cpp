@@ -1,8 +1,8 @@
-#include "widget.h"
-#include "ui_widget.h"
+#include <Headers/Calculator.h>
+#include <ui_widget.h>
 
 
-Widget::Widget(QWidget *parent)
+Calculator::Calculator(QWidget *parent)
     : QWidget(parent)
 {
     createButtons();
@@ -26,18 +26,11 @@ Widget::Widget(QWidget *parent)
     setLayout(verticalLayout);
 }
 
-void Widget::createButtons(){
+void Calculator::createButtons(){
     //Numbers
-    buttonZero = new QPushButton(QString{"0"}, this);
-    buttonOne = new QPushButton(QString{"1"}, this);
-    buttonTwo = new QPushButton(QString{"2"}, this);
-    buttonThree = new QPushButton(QString{"3"}, this);
-    buttonFour = new QPushButton(QString{"4"}, this);
-    buttonFive = new QPushButton(QString{"5"}, this);
-    buttonSix = new QPushButton(QString{"6"}, this);
-    buttonSeven = new QPushButton(QString{"7"}, this);
-    buttonEight = new QPushButton(QString{"8"}, this);
-    buttonNine = new QPushButton(QString{"9"}, this);
+    for(std::uint8_t i = 0; i <= 9; ++i){
+        NumberButtons[i] = new NButton{i, this};
+    }
 
     //Operations
     buttonAdd = new QPushButton{QString{"+"}, this};
@@ -51,7 +44,7 @@ void Widget::createButtons(){
     buttonCalculate = new QPushButton{QString{"="}, this};
     buttonDot = new QPushButton{QString{"."}, this};
 
-    auto font = buttonZero->font();
+    auto font = NumberButtons[0]->font();
     font.setPointSize(16);
 
     auto lista = children();
@@ -71,31 +64,31 @@ void Widget::createButtons(){
  * 7 8 9 +
  * 4 5 6 +
  * 1 2 3 =
- * 0 0 . =
+ * C 0 . =
 */
-void Widget::setUpButtons(QGridLayout& grid){
+void Calculator::setUpButtons(QGridLayout& grid){
     grid.addWidget(buttonRemoveCharacter, 0, 0);
     grid.addWidget(buttonDivide, 0, 1);
     grid.addWidget(buttonMultiply, 0, 2);
     grid.addWidget(buttonSubstract, 0, 3);
 
-    grid.addWidget(buttonSeven, 1, 0);
-    grid.addWidget(buttonEight, 1, 1);
-    grid.addWidget(buttonNine, 1, 2);
+    NumberButtons[7]->setUp(&grid, 1, 0);
+    NumberButtons[8]->setUp(&grid, 1, 1);
+    NumberButtons[9]->setUp(&grid, 1, 2);
     grid.addWidget(buttonAdd, 1, 3, 2, 1);
 
-    grid.addWidget(buttonFour, 2, 0);
-    grid.addWidget(buttonFive, 2, 1);
-    grid.addWidget(buttonSix, 2, 2);
+    NumberButtons[4]->setUp(&grid, 2, 0);
+    NumberButtons[5]->setUp(&grid, 2, 1);
+    NumberButtons[6]->setUp(&grid, 2, 2);
     //grid.addWidget(buttonAdd, 2, 3);
 
-    grid.addWidget(buttonOne, 3, 0);
-    grid.addWidget(buttonTwo, 3, 1);
-    grid.addWidget(buttonThree, 3, 2);
+    NumberButtons[1]->setUp(&grid, 3, 0);
+    NumberButtons[2]->setUp(&grid, 3, 1);
+    NumberButtons[3]->setUp(&grid, 3, 2);
     grid.addWidget(buttonCalculate, 3, 3, 2, 1);
 
     grid.addWidget(buttonClear, 4, 0);
-    grid.addWidget(buttonZero, 4, 1);
+    NumberButtons[0]->setUp(&grid, 4, 1);
     grid.addWidget(buttonDot, 4, 2);
     //grid.addWidget(buttonCalculate, 4, 3);
 }

@@ -7,21 +7,29 @@
 #include <QPushButton>
 #include <QSizePolicy>
 
+#include <Headers/NButton.h>
+
+#include <array>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
-class Widget : public QWidget
+class Calculator : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
-    ~Widget(){}
+    Calculator(QWidget *parent = nullptr);
+    ~Calculator(){}
+
+signals:
+
 
 private:
     void createButtons();
     void setUpButtons(QGridLayout& grid);
+    void connectSignals();
 
 
     QVBoxLayout* verticalLayout;
@@ -33,16 +41,7 @@ private:
     //Buttons
 
     //Numbers
-    QPushButton* buttonZero;
-    QPushButton* buttonOne;
-    QPushButton* buttonTwo;
-    QPushButton* buttonThree;
-    QPushButton* buttonFour;
-    QPushButton* buttonFive;
-    QPushButton* buttonSix;
-    QPushButton* buttonSeven;
-    QPushButton* buttonEight;
-    QPushButton* buttonNine;
+    std::array<NButton*, 10> NumberButtons;
 
     //Operations
     QPushButton* buttonAdd;
