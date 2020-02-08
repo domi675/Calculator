@@ -8,6 +8,7 @@
 #include <QSizePolicy>
 
 #include <Headers/NButton.h>
+#include <Headers/OperationsEnum.h>
 
 #include <array>
 
@@ -23,13 +24,19 @@ public:
     Calculator(QWidget *parent = nullptr);
     ~Calculator(){}
 
-signals:
 
+private slots:
+    void handleNumberButton();
+    void handleOperationButton();
 
 private:
     void createButtons();
     void setUpButtons(QGridLayout& grid);
     void connectSignals();
+    void setUpLayouts();
+
+    void updateDisplayedString();
+
 
 
     QVBoxLayout* verticalLayout;
@@ -37,6 +44,14 @@ private:
     QGridLayout* gridLayout;
 
     QLineEdit* textField;
+    QString displayedText;
+
+    Operations lastOperation, activeOperation;
+    long double number1, number2;
+    long double* actualNumber;
+
+    bool is1FloatingPoint;
+    bool is2FloatingPoint;
 
     //Buttons
 

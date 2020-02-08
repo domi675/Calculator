@@ -5,9 +5,7 @@
 
 NButton::NButton(std::uint8_t num, QWidget *parent)
     :QPushButton{QString{std::to_string(num).c_str()}, parent}, buttonNumber{num}
-{
-    QObject::connect(this, &QAbstractButton::click, this, &NButton::buttonPressed);
-}
+{}
 
 void NButton::setUp(QGridLayout *grid, uint8_t x, uint8_t y, uint8_t xslots, uint8_t yslots)
 {

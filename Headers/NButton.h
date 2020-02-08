@@ -24,9 +24,6 @@ public:
 
     std::uint8_t getNumber() const{ return buttonNumber; }
 
-signals:
-    std::uint8_t buttonPressed() const;
-
 private:
     std::uint8_t buttonNumber;
 };

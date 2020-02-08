@@ -6,6 +6,7 @@ enum class Operations{
     CLEAR_LAST,
     CALCULATE,
     INSERT_DOT,
+    ADD_NUMBER,
 
     ADD,
     SUBSTRACT,
@@ -14,3 +15,5 @@ enum class Operations{
 
     RESERVED_ALWAYS_LAST
 };
+
+char operationToChar(Operations o);
