@@ -29,8 +29,14 @@ void Calculator::handleNumberButton()
         if(activeOperation == Operations::UNKNOWN_FIRST){
             actualNumber = &number1;
         }
-        *actualNumber *= 10;
-        *actualNumber += num;
+        if((actualNumber == &number1 && is1FloatingPoint) || (actualNumber == &number2 && is2FloatingPoint)){
+            str.push_back(num);
+            *actualNumber = std::stold(str);
+        }
+        else{
+            *actualNumber *= 10;
+            *actualNumber += num;
+        }
         lastOperation = Operations::ADD_NUMBER;
         updateDisplayedString();
     }
@@ -81,7 +87,12 @@ void Calculator::handleOperationButton()
         activeOperation = Operations::UNKNOWN_FIRST;
         break;
     case Operations::INSERT_DOT:
-
+        if(actualNumber == &number1){
+            is1FloatingPoint = true;
+        }
+        else{
+            is2FloatingPoint = true;
+        }
         break;
     case Operations::ADD:
         activeOperation = lastOperation;
@@ -197,7 +208,7 @@ void Calculator::setUpLayouts()
     gridLayout->setSizeConstraint(QLayout::SetNoConstraint);
 
     textField = new QLineEdit;
-    textField->setText(QString{"example text"});
+    textField->setText(QString{""});
     textField->setReadOnly(true);
     textField->setMinimumHeight(60);
     textField->setAlignment(Qt::AlignmentFlag::AlignRight);

@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/NButton.cpp \
     Sources/Calculator.cpp \
+    Sources/Number.cpp \
     Sources/OperationsEnum.cpp \
     Sources/main.cpp
 
 HEADERS += \
     Headers/Calculator.h \
+    Headers/Number.h \
     Headers/OperationsEnum.h \
     Headers/NButton.h
 
